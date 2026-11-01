@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="brand">🎓 ResultHub</div>
+    <span>Student Result & Grade Management System</span>
+</nav>
+
+<main class="container">
+    <section class="welcome">
+        <div>
+            <p class="eyebrow">ACADEMIC DASHBOARD</p>
+            <h1>Student Results</h1>
+            <p>Manage student records and track academic performance.</p>
+        </div>
+        <div class="date-chip">Python Mini Project</div>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <section class="stats">
+        <article class="stat-card">
+            <span>Total Students</span>
+            <strong>{{ total_students }}</strong>
+            <small>Registered records</small>
+        </article>
+        <article class="stat-card">
+            <span>Passed</span>
+            <strong class="green">{{ passed_students }}</strong>
+            <small>All subjects cleared</small>
+        </article>
+        <article class="stat-card">
+            <span>Failed</span>
+            <strong class="red">{{ failed_students }}</strong>
+            <small>Needs improvement</small>
+        </article>
+        <article class="stat-card">
+            <span>Class Average</span>
+            <strong>{{ average_percentage }}%</strong>
+            <small>Overall percentage</small>
+        </article>
+    </section>
+
+    <section class="content-grid">
+        <section class="panel form-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">STUDENT DETAILS</p>
+                    <h2>{{ "Edit Student" if editing_student else "Add Student" }}</h2>
+                </div>
+                <span class="icon-circle">✎</span>
+            </div>
+
+            <form method="POST" action="{{ url_for('index') }}">
+                <input type="hidden" name="student_id"
+                       value="{{ editing_student.id if editing_student else '' }}">
+
+                <label for="name">Student Name</label>
+                <input id="name" name="name" type="text"
+                       placeholder="Enter full name" required
+                       value="{{ editing_student.name if editing_student else '' }}">
+
+                <label for="usn">USN / Student ID</label>
+                <input id="usn" name="usn" type="text"
+                       placeholder="e.g. 1OX23CS001" required
+                       value="{{ editing_student.usn if editing_student else '' }}">
+
+                <label for="semester">Semester</label>
+                <select id="semester" name="semester" required>
+                    <option value="">Select semester</option>
+                    {% for sem in range(1, 9) %}
+                        <option value="{{ sem }}"
+                            {% if editing_student and editing_student.semester == sem %}selected{% endif %}>
+                            Semester {{ sem }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <div class="subject-heading">
+                    <h3>Subject Marks</h3>
+                    <span>Out of 100 each</span>
+                </div>
+
+                {% for subject in subjects %}
+                    <label for="mark{{ loop.index }}">{{ subject }}</label>
+                    <input id="mark{{ loop.index }}"
+                           name="{{ subject }}"
+                           type="number"
+                           min="0" max="100" step="1"
+                           placeholder="0 – 100" required
+                           value="{{ editing_student.marks[subject] if editing_student else '' }}">
+                {% endfor %}
+
+                <button class="primary-button" type="submit">
+                    {{ "Save Changes" if editing_student else "Add Student Record" }}
+                </button>
+
+                {% if editing_student %}
+                    <a class="cancel-link" href="{{ url_for('index') }}">Cancel editing</a>
+                {% endif %}
+            </form>
+        </section>
+
+        <section class="panel results-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">RECORDS OVERVIEW</p>
+                    <h2>Student Records</h2>
+                </div>
+                <span class="record-count">{{ students|length }} shown</span>
+            </div>
+
+            
+<form method="GET" action="{{ url_for('index') }}" class="search-form">
+    <input type="search" name="search"
+           value="{{ search_query }}"
+           placeholder="Search by name or USN...">
+
+    <button type="submit" class="search-button">Search</button>
+
+    {% if search_query %}
+        <a class="clear-link" href="{{ url_for('index') }}">Clear</a>
+    {% endif %}
+
+    <a class="export-button"
+       href="{{ url_for('export_results', search=search_query) }}">
+        ↓ Download CSV
+    </a>
+</form>
+
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Semester</th>
+                            <th>Total</th>
+                            <th>Percentage</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>
+                                <div class="student-name">{{ student.name }}</div>
+                                <div class="student-usn">{{ student.usn }}</div>
+                            </td>
+                            <td>{{ student.semester }}</td>
+                            <td>{{ student.total }}/{{ student.maximum }}</td>
+                            <td>{{ student.percentage }}%</td>
+                            <td><span class="grade">{{ student.grade }}</span></td>
+                            <td>
+                                <span class="status {{ student.status|lower }}">
+                                    {{ student.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a class="edit-link"
+                                       href="{{ url_for('index', edit=student.id) }}">Edit</a>
+                                    <form method="POST"
+                                          action="{{ url_for('delete_student', student_id=student.id) }}"
+                                          onsubmit="return confirm('Delete this student record?');">
+                                        <button class="delete-button" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="empty">
+                                No student records found. Add a student using the form.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if top_student %}
+                <div class="top-student">
+                    <span class="trophy">🏆</span>
+                    <div>
+                        <small>TOP PERFORMER</small>
+                        <strong>{{ top_student.name }}</strong>
+                        <span>{{ top_student.percentage }}% · Grade {{ top_student.grade }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+    </section>
+
+    <section class="panel grading-panel">
+        <h2>Grading Criteria</h2>
+        <p>A student must score at least 35 in every subject to pass.</p>
+        <div class="grade-list">
+            <span><b>O</b> 90–100%</span>
+            <span><b>A+</b> 80–89.99%</span>
+            <span><b>A</b> 70–79.99%</span>
+            <span><b>B</b> 60–69.99%</span>
+            <span><b>C</b> 50–59.99%</span>
+            <span><b>D</b> Below 50% (pass)</span>
+            <span><b>F</b> Failed a subject</span>
+        </div>
+    </section>
+
+    <footer>Student Result & Grade Management System · Python + Flask</footer>
+</main>
+</body>
+</html>

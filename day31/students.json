@@ -1,0 +1,470 @@
+[
+    {
+        "id": 1,
+        "name": "Aarav Sharma",
+        "usn": "1OX23CS001",
+        "semester": 3,
+        "marks": {
+            "Python": 33,
+            "DBMS": 65,
+            "Operating Systems": 61,
+            "Computer Networks": 58,
+            "Mathematics": 47
+        },
+        "total": 264,
+        "maximum": 500,
+        "percentage": 52.8,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 2,
+        "name": "Aditi Patil",
+        "usn": "1OX23CS002",
+        "semester": 3,
+        "marks": {
+            "Python": 99,
+            "DBMS": 41,
+            "Operating Systems": 84,
+            "Computer Networks": 34,
+            "Mathematics": 33
+        },
+        "total": 291,
+        "maximum": 500,
+        "percentage": 58.2,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 3,
+        "name": "Arjun Rao",
+        "usn": "1OX23CS003",
+        "semester": 3,
+        "marks": {
+            "Python": 57,
+            "DBMS": 59,
+            "Operating Systems": 94,
+            "Computer Networks": 33,
+            "Mathematics": 55
+        },
+        "total": 298,
+        "maximum": 500,
+        "percentage": 59.6,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 4,
+        "name": "Ananya Kumar",
+        "usn": "1OX23CS004",
+        "semester": 7,
+        "marks": {
+            "Python": 83,
+            "DBMS": 58,
+            "Operating Systems": 87,
+            "Computer Networks": 65,
+            "Mathematics": 30
+        },
+        "total": 323,
+        "maximum": 500,
+        "percentage": 64.6,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 5,
+        "name": "Rohan Shetty",
+        "usn": "1OX23CS005",
+        "semester": 4,
+        "marks": {
+            "Python": 84,
+            "DBMS": 73,
+            "Operating Systems": 65,
+            "Computer Networks": 49,
+            "Mathematics": 57
+        },
+        "total": 328,
+        "maximum": 500,
+        "percentage": 65.6,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 6,
+        "name": "Sneha Gowda",
+        "usn": "1OX23CS006",
+        "semester": 5,
+        "marks": {
+            "Python": 43,
+            "DBMS": 41,
+            "Operating Systems": 78,
+            "Computer Networks": 42,
+            "Mathematics": 75
+        },
+        "total": 279,
+        "maximum": 500,
+        "percentage": 55.8,
+        "grade": "C",
+        "status": "Pass"
+    },
+    {
+        "id": 7,
+        "name": "Rahul Reddy",
+        "usn": "1OX23CS007",
+        "semester": 5,
+        "marks": {
+            "Python": 63,
+            "DBMS": 35,
+            "Operating Systems": 88,
+            "Computer Networks": 98,
+            "Mathematics": 45
+        },
+        "total": 329,
+        "maximum": 500,
+        "percentage": 65.8,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 8,
+        "name": "Priya Kulkarni",
+        "usn": "1OX23CS008",
+        "semester": 6,
+        "marks": {
+            "Python": 40,
+            "DBMS": 100,
+            "Operating Systems": 67,
+            "Computer Networks": 76,
+            "Mathematics": 54
+        },
+        "total": 337,
+        "maximum": 500,
+        "percentage": 67.4,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 9,
+        "name": "Kiran Joshi",
+        "usn": "1OX23CS009",
+        "semester": 3,
+        "marks": {
+            "Python": 35,
+            "DBMS": 59,
+            "Operating Systems": 67,
+            "Computer Networks": 40,
+            "Mathematics": 59
+        },
+        "total": 260,
+        "maximum": 500,
+        "percentage": 52.0,
+        "grade": "C",
+        "status": "Pass"
+    },
+    {
+        "id": 10,
+        "name": "Divya Naik",
+        "usn": "1OX23CS010",
+        "semester": 3,
+        "marks": {
+            "Python": 78,
+            "DBMS": 65,
+            "Operating Systems": 88,
+            "Computer Networks": 76,
+            "Mathematics": 50
+        },
+        "total": 357,
+        "maximum": 500,
+        "percentage": 71.4,
+        "grade": "A",
+        "status": "Pass"
+    },
+    {
+        "id": 11,
+        "name": "Aditya Verma",
+        "usn": "1OX23CS011",
+        "semester": 5,
+        "marks": {
+            "Python": 75,
+            "DBMS": 56,
+            "Operating Systems": 64,
+            "Computer Networks": 39,
+            "Mathematics": 51
+        },
+        "total": 285,
+        "maximum": 500,
+        "percentage": 57.0,
+        "grade": "C",
+        "status": "Pass"
+    },
+    {
+        "id": 12,
+        "name": "Pooja Desai",
+        "usn": "1OX23CS012",
+        "semester": 7,
+        "marks": {
+            "Python": 61,
+            "DBMS": 50,
+            "Operating Systems": 89,
+            "Computer Networks": 78,
+            "Mathematics": 64
+        },
+        "total": 342,
+        "maximum": 500,
+        "percentage": 68.4,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 13,
+        "name": "Vikram Hegde",
+        "usn": "1OX23CS013",
+        "semester": 7,
+        "marks": {
+            "Python": 58,
+            "DBMS": 71,
+            "Operating Systems": 37,
+            "Computer Networks": 59,
+            "Mathematics": 34
+        },
+        "total": 259,
+        "maximum": 500,
+        "percentage": 51.8,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 14,
+        "name": "Meera Mishra",
+        "usn": "1OX23CS014",
+        "semester": 5,
+        "marks": {
+            "Python": 81,
+            "DBMS": 64,
+            "Operating Systems": 38,
+            "Computer Networks": 57,
+            "Mathematics": 70
+        },
+        "total": 310,
+        "maximum": 500,
+        "percentage": 62.0,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 15,
+        "name": "Nikhil Singh",
+        "usn": "1OX23CS015",
+        "semester": 4,
+        "marks": {
+            "Python": 93,
+            "DBMS": 80,
+            "Operating Systems": 88,
+            "Computer Networks": 48,
+            "Mathematics": 63
+        },
+        "total": 372,
+        "maximum": 500,
+        "percentage": 74.4,
+        "grade": "A",
+        "status": "Pass"
+    },
+    {
+        "id": 16,
+        "name": "Kavya Poojary",
+        "usn": "1OX23CS016",
+        "semester": 4,
+        "marks": {
+            "Python": 61,
+            "DBMS": 98,
+            "Operating Systems": 63,
+            "Computer Networks": 84,
+            "Mathematics": 81
+        },
+        "total": 387,
+        "maximum": 500,
+        "percentage": 77.4,
+        "grade": "A",
+        "status": "Pass"
+    },
+    {
+        "id": 17,
+        "name": "Sanjay Bhat",
+        "usn": "1OX23CS017",
+        "semester": 5,
+        "marks": {
+            "Python": 58,
+            "DBMS": 47,
+            "Operating Systems": 95,
+            "Computer Networks": 93,
+            "Mathematics": 41
+        },
+        "total": 334,
+        "maximum": 500,
+        "percentage": 66.8,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 18,
+        "name": "Isha Gupta",
+        "usn": "1OX23CS018",
+        "semester": 3,
+        "marks": {
+            "Python": 44,
+            "DBMS": 49,
+            "Operating Systems": 50,
+            "Computer Networks": 84,
+            "Mathematics": 38
+        },
+        "total": 265,
+        "maximum": 500,
+        "percentage": 53.0,
+        "grade": "C",
+        "status": "Pass"
+    },
+    {
+        "id": 19,
+        "name": "Varun Nayak",
+        "usn": "1OX23CS019",
+        "semester": 6,
+        "marks": {
+            "Python": 78,
+            "DBMS": 89,
+            "Operating Systems": 97,
+            "Computer Networks": 62,
+            "Mathematics": 100
+        },
+        "total": 426,
+        "maximum": 500,
+        "percentage": 85.2,
+        "grade": "A+",
+        "status": "Pass"
+    },
+    {
+        "id": 20,
+        "name": "Neha Jain",
+        "usn": "1OX23CS020",
+        "semester": 3,
+        "marks": {
+            "Python": 44,
+            "DBMS": 98,
+            "Operating Systems": 64,
+            "Computer Networks": 73,
+            "Mathematics": 44
+        },
+        "total": 323,
+        "maximum": 500,
+        "percentage": 64.6,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 21,
+        "name": "Manoj Shah",
+        "usn": "1OX23CS021",
+        "semester": 5,
+        "marks": {
+            "Python": 85,
+            "DBMS": 50,
+            "Operating Systems": 88,
+            "Computer Networks": 30,
+            "Mathematics": 63
+        },
+        "total": 316,
+        "maximum": 500,
+        "percentage": 63.2,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 22,
+        "name": "Shreya Mehta",
+        "usn": "1OX23CS022",
+        "semester": 7,
+        "marks": {
+            "Python": 52,
+            "DBMS": 94,
+            "Operating Systems": 43,
+            "Computer Networks": 68,
+            "Mathematics": 94
+        },
+        "total": 351,
+        "maximum": 500,
+        "percentage": 70.2,
+        "grade": "A",
+        "status": "Pass"
+    },
+    {
+        "id": 23,
+        "name": "Akash Iyer",
+        "usn": "1OX23CS023",
+        "semester": 7,
+        "marks": {
+            "Python": 55,
+            "DBMS": 49,
+            "Operating Systems": 77,
+            "Computer Networks": 50,
+            "Mathematics": 99
+        },
+        "total": 330,
+        "maximum": 500,
+        "percentage": 66.0,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 24,
+        "name": "Pallavi Pillai",
+        "usn": "1OX23CS024",
+        "semester": 7,
+        "marks": {
+            "Python": 30,
+            "DBMS": 71,
+            "Operating Systems": 92,
+            "Computer Networks": 32,
+            "Mathematics": 44
+        },
+        "total": 269,
+        "maximum": 500,
+        "percentage": 53.8,
+        "grade": "F",
+        "status": "Fail"
+    },
+    {
+        "id": 25,
+        "name": "Siddharth Das",
+        "usn": "1OX23CS025",
+        "semester": 5,
+        "marks": {
+            "Python": 69,
+            "DBMS": 60,
+            "Operating Systems": 37,
+            "Computer Networks": 60,
+            "Mathematics": 40
+        },
+        "total": 266,
+        "maximum": 500,
+        "percentage": 53.2,
+        "grade": "C",
+        "status": "Pass"
+    },
+    {
+        "id": 26,
+        "name": "Neha Yadav",
+        "usn": "1OX23CS026",
+        "semester": 5,
+        "marks": {
+            "Python": 81,
+            "DBMS": 90,
+            "Operating Systems": 85,
+            "Computer Networks": 86,
+            "Mathematics": 88
+        },
+        "total": 430,
+        "maximum": 500,
+        "percentage": 86.0,
+        "grade": "A+",
+        "status": "Pass"
+    }
+]
