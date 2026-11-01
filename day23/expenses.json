@@ -1,0 +1,74 @@
+{
+    "expenses": [
+        {
+            "id": 1,
+            "date": "2026-10-12",
+            "category": "Food",
+            "description": "dinner",
+            "amount": 2300.0
+        },
+        {
+            "id": 2,
+            "date": "2026-10-05",
+            "category": "Shopping",
+            "description": "birthday",
+            "amount": 5700.0
+        },
+        {
+            "id": 3,
+            "date": "2026-08-23",
+            "category": "Entertainment",
+            "description": "movie",
+            "amount": 3000.0
+        },
+        {
+            "id": 4,
+            "date": "2026-01-27",
+            "category": "Travel",
+            "description": "staycation",
+            "amount": 10000.0
+        },
+        {
+            "id": 5,
+            "date": "2026-02-14",
+            "category": "Travel",
+            "description": "dinner",
+            "amount": 3500.0
+        },
+        {
+            "id": 6,
+            "date": "2026-03-31",
+            "category": "Health",
+            "description": "clinical",
+            "amount": 13500.0
+        },
+        {
+            "id": 7,
+            "date": "2026-04-24",
+            "category": "Other",
+            "description": "households",
+            "amount": 15000.0
+        },
+        {
+            "id": 8,
+            "date": "2026-06-25",
+            "category": "Travel",
+            "description": "vacation",
+            "amount": 10000.0
+        },
+        {
+            "id": 9,
+            "date": "2026-06-05",
+            "category": "Education",
+            "description": "college",
+            "amount": 106100.0
+        },
+        {
+            "id": 10,
+            "date": "2026-07-23",
+            "category": "Other",
+            "description": "festival",
+            "amount": 11000.0
+        }
+    ]
+}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Number Guessing Game</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dbeafe,
+                    #ede9fe,
+                    #fce7f3
+                );
+
+            padding: 20px;
+
+        }
+
+
+        .game {
+
+            width: 450px;
+
+            max-width: 100%;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.15);
+
+        }
+
+
+        .icon {
+
+            font-size: 65px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            color: #1e3a8a;
+
+        }
+
+
+        .subtitle {
+
+            color: #64748b;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .range {
+
+            background: #f1f5f9;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            color: #475569;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 12px;
+
+            font-size: 18px;
+
+            text-align: center;
+
+        }
+
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #6366f1;
+
+            box-shadow:
+                0 0 0 3px rgba(99,102,241,0.15);
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 18px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+        }
+
+
+        .message {
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            font-weight: bold;
+
+        }
+
+
+        .low {
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+        }
+
+
+        .high {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        .correct {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .error {
+
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+        }
+
+
+        .info {
+
+            background: #dbeafe;
+
+            color: #1e40af;
+
+        }
+
+
+        .attempts {
+
+            margin-top: 20px;
+
+            font-size: 16px;
+
+            color: #475569;
+
+        }
+
+
+        .reset {
+
+            display: inline-block;
+
+            margin-top: 18px;
+
+            text-decoration: none;
+
+            color: #6366f1;
+
+            font-weight: bold;
+
+        }
+
+
+        .footer {
+
+            margin-top: 25px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="game">
+
+    <div class="icon">
+        🎯
+    </div>
+
+
+    <h1>
+        Number Guessing Game
+    </h1>
+
+
+    <p class="subtitle">
+        Can you guess the secret number?
+    </p>
+
+
+    <div class="range">
+
+        🔢 Guess a number between <b>1 and 100</b>
+
+    </div>
+
+
+    <form action="/guess" method="POST">
+
+        <input
+            type="number"
+            name="guess"
+            min="1"
+            max="100"
+            placeholder="Enter your guess"
+            value="{{ guess if guess is defined else '' }}"
+            required
+        >
+
+
+        <button type="submit">
+
+            🎯 Make a Guess
+
+        </button>
+
+    </form>
+
+
+    {% if message %}
+
+    <div class="message {{ message_type }}">
+
+        {{ message }}
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="attempts">
+
+        Attempts: <b>{{ attempts }}</b>
+
+    </div>
+
+
+    <a href="/reset" class="reset">
+
+        🔄 Start New Game
+
+    </a>
+
+
+    <div class="footer">
+
+        Python • Flask • Random Number Game
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Exception Handling Practice</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            color: #1e293b;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+        }
+
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 38px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .header p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .card h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .operations {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .operation {
+
+            padding: 22px;
+
+            border-radius: 14px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .operation h3 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .operation p {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            margin-bottom: 10px;
+
+            outline: none;
+
+        }
+
+
+        input:focus {
+
+            border-color: #4f46e5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(79, 70, 229, 0.1);
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        button:hover {
+
+            background: #4338ca;
+
+        }
+
+
+        .result {
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            background: #eef2ff;
+
+            border-left: 5px solid #4f46e5;
+
+        }
+
+
+        .result.error {
+
+            background: #fee2e2;
+
+            border-left-color: #dc2626;
+
+        }
+
+
+        .result h3 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .result p {
+
+            font-size: 16px;
+
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .exception-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        .exception-table th,
+        .exception-table td {
+
+            padding: 14px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            text-align: left;
+
+        }
+
+
+        .exception-table th {
+
+            background: #f1f5f9;
+
+        }
+
+
+        .code {
+
+            background: #f1f5f9;
+
+            padding: 3px 7px;
+
+            border-radius: 5px;
+
+            font-family: monospace;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .operations {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+            .card {
+
+                padding: 20px;
+
+            }
+
+            .exception-table {
+
+                font-size: 13px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>🛡️ Exception Handling Practice</h1>
+
+        <p>
+            Learn how Python safely handles
+            runtime errors
+        </p>
+
+    </div>
+
+
+    {% if result %}
+
+    <div class="card">
+
+        <div class="result
+            {% if error_type %}error{% endif %}">
+
+            {% if error_type %}
+
+            <span class="badge">
+                {{ error_type }}
+            </span>
+
+            {% endif %}
+
+            <h3>
+                {% if error_type %}
+                    Exception Handled
+                {% else %}
+                    Operation Successful
+                {% endif %}
+            </h3>
+
+            <p>
+                {{ result }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="card">
+
+        <h2>
+            🧪 Test Exception Handling
+        </h2>
+
+
+        <div class="operations">
+
+
+            <!-- ValueError -->
+
+            <div class="operation">
+
+                <h3>
+                    1️⃣ Invalid Numeric Input
+                </h3>
+
+                <p>
+                    Demonstrates ValueError.
+                </p>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="operation"
+                        value="numeric"
+                    >
+
+                    <input
+                        type="text"
+                        name="numeric_value"
+                        placeholder="Example: abc"
+                        required
+                    >
+
+                    <button type="submit">
+                        Test ValueError
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- ZeroDivisionError -->
+
+            <div class="operation">
+
+                <h3>
+                    2️⃣ Division by Zero
+                </h3>
+
+                <p>
+                    Demonstrates ZeroDivisionError.
+                </p>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="operation"
+                        value="division"
+                    >
+
+                    <input
+                        type="number"
+                        name="first_value"
+                        placeholder="First number"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        name="second_value"
+                        placeholder="Second number"
+                        required
+                    >
+
+                    <button type="submit">
+                        Test Division
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- KeyError -->
+
+            <div class="operation">
+
+                <h3>
+                    3️⃣ Missing Dictionary Key
+                </h3>
+
+                <p>
+                    Demonstrates KeyError.
+                </p>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="operation"
+                        value="key"
+                    >
+
+                    <input
+                        type="text"
+                        name="dictionary_key"
+                        placeholder="Example: salary"
+                        required
+                    >
+
+                    <button type="submit">
+                        Test KeyError
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- IndexError -->
+
+            <div class="operation">
+
+                <h3>
+                    4️⃣ Invalid List Index
+                </h3>
+
+                <p>
+                    Demonstrates IndexError.
+                    Valid indexes: 0, 1, 2.
+                </p>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="operation"
+                        value="index"
+                    >
+
+                    <input
+                        type="number"
+                        name="list_index"
+                        placeholder="Example: 10"
+                        required
+                    >
+
+                    <button type="submit">
+                        Test IndexError
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- TypeError -->
+
+            <div class="operation">
+
+                <h3>
+                    5️⃣ Invalid Data Types
+                </h3>
+
+                <p>
+                    Demonstrates TypeError.
+                </p>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="operation"
+                        value="type"
+                    >
+
+                    <button type="submit">
+                        Test TypeError
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- FileNotFoundError -->
+
+            <div class="operation">
+
+                <h3>
+                    6️⃣ Missing File
+                </h3>
+
+                <p>
+                    Demonstrates FileNotFoundError.
+                </p>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="operation"
+                        value="file"
+                    >
+
+                    <input
+                        type="text"
+                        name="filename"
+                        placeholder="Example: missing.txt"
+                        required
+                    >
+
+                    <button type="submit">
+                        Test File Error
+                    </button>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            📚 Handled Exceptions
+        </h2>
+
+
+        <table class="exception-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Exception
+                    </th>
+
+                    <th>
+                        Example
+                    </th>
+
+                    <th>
+                        Purpose
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        <span class="code">
+                            ValueError
+                        </span>
+                    </td>
+
+                    <td>
+                        Invalid number
+                    </td>
+
+                    <td>
+                        Handles invalid numeric input
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <span class="code">
+                            ZeroDivisionError
+                        </span>
+                    </td>
+
+                    <td>
+                        10 ÷ 0
+                    </td>
+
+                    <td>
+                        Prevents division by zero
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <span class="code">
+                            KeyError
+                        </span>
+                    </td>
+
+                    <td>
+                        Missing dictionary key
+                    </td>
+
+                    <td>
+                        Handles unavailable keys
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <span class="code">
+                            IndexError
+                        </span>
+                    </td>
+
+                    <td>
+                        Invalid list index
+                    </td>
+
+                    <td>
+                        Handles unavailable positions
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <span class="code">
+                            TypeError
+                        </span>
+                    </td>
+
+                    <td>
+                        Invalid data types
+                    </td>
+
+                    <td>
+                        Handles incompatible operations
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <span class="code">
+                            FileNotFoundError
+                        </span>
+                    </td>
+
+                    <td>
+                        Missing file
+                    </td>
+
+                    <td>
+                        Handles unavailable files
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

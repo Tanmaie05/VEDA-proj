@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+        135deg,
+        #dfe9f3,
+        #f5e8ff
+    );
+}
+
+.card{
+    width:420px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.logo{
+    width:60px;
+    height:60px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(
+        135deg,
+        #4f8cff,
+        #6c63ff
+    );
+    color:white;
+    border-radius:12px;
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    color:#444;
+    font-weight:500;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+input:focus,
+select:focus{
+    border-color:#6c63ff;
+}
+
+.row{
+    display:flex;
+    gap:10px;
+}
+
+.row div{
+    flex:1;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg, #4f8cff, #6c63ff);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 20px rgba(108,99,255,0.25);
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    background:#f5f7ff;
+    color:#1e3a8a;
+    font-weight:600;
+    text-align:center;
+}
+
+@media(max-width:500px){
+    .card{
+        width:90%;
+        padding:20px;
+    }
+
+    .row{
+        flex-direction:column;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">°C</div>
+        <h1>Temperature Converter</h1>
+        <p class="subtitle">Convert values instantly between Celsius, Fahrenheit, and Kelvin.</p>
+
+        <label for="temperature">Temperature</label>
+        <input type="number" id="temperature" placeholder="Enter temperature" step="any">
+
+        <div class="row">
+            <div>
+                <label for="fromUnit">From</label>
+                <select id="fromUnit">
+                    <option value="celsius">Celsius</option>
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+            <div>
+                <label for="toUnit">To</label>
+                <select id="toUnit">
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="button" onclick="convertTemperature()">Convert</button>
+        <div class="result" id="result">Result will appear here</div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const input = document.getElementById('temperature');
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            const result = document.getElementById('result');
+
+            const value = parseFloat(input.value);
+
+            if (isNaN(value)) {
+                result.textContent = 'Please enter a valid number.';
+                return;
+            }
+
+            let celsius;
+
+            if (fromUnit === 'celsius') {
+                celsius = value;
+            } else if (fromUnit === 'fahrenheit') {
+                celsius = (value - 32) * 5 / 9;
+            } else {
+                celsius = value - 273.15;
+            }
+
+            let converted;
+
+            if (toUnit === 'celsius') {
+                converted = celsius;
+            } else if (toUnit === 'fahrenheit') {
+                converted = (celsius * 9 / 5) + 32;
+            } else {
+                converted = celsius + 273.15;
+            }
+
+            result.textContent = `${value} ${fromUnit} = ${converted.toFixed(2)} ${toUnit}`;
+        }
+    </script>
+</body>
+</html>

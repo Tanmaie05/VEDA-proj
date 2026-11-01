@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Organizer | Day 22</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            font-family: Arial, sans-serif;
+            color: #1e293b;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        .container { max-width: 900px; margin: auto; }
+
+        header { text-align: center; margin-bottom: 25px; }
+        header h1 { color: #4338ca; }
+        header p { color: #64748b; }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 22px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px #1e293b12;
+        }
+
+        button {
+            border: none;
+            border-radius: 9px;
+            background: #4f46e5;
+            color: white;
+            padding: 13px 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover { background: #3730a3; }
+
+        .file-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px;
+        }
+
+        .file {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            padding: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+        }
+
+        .stat {
+            background: #eef2ff;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .stat h3 { color: #4338ca; font-size: 26px; margin: 8px 0 0; }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        th { background: #eef2ff; color: #3730a3; }
+        .table-wrap { overflow-x: auto; }
+
+        @media (max-width: 500px) {
+            .card { padding: 17px; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <h1>📂 File Organizer</h1>
+        <p>V-Internship · Python Programming Track · Day 22</p>
+        <p>Organize files automatically based on their extensions.</p>
+    </header>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <section class="card">
+        <h2>Test Directory</h2>
+        <p>
+            Add sample files to the project's <code>test_directory</code>
+            folder, then click the button below.
+        </p>
+
+        <form method="POST">
+            <input type="hidden" name="action" value="organize">
+            <button type="submit">Organize Files</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Files Currently in the Root Folder</h2>
+
+        <div class="file-list">
+            {% for filename in current_files %}
+                <div class="file">📄 {{ filename }}</div>
+            {% else %}
+                <p>No files waiting to be organized.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% if report %}
+        <section class="card">
+            <div class="success">File organization completed!</div>
+
+            <div class="stats">
+                <div class="stat">
+                    <p>Files Organized</p>
+                    <h3>{{ report.moved_count }}</h3>
+                </div>
+
+                <div class="stat">
+                    <p>Files Failed</p>
+                    <h3>{{ report.skipped_count }}</h3>
+                </div>
+            </div>
+
+            <h2>Organization Report</h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in report.results %}
+                        <tr>
+                            <td>{{ item.filename }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.status }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3">No files needed organizing.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    {% endif %}
+</div>
+</body>
+</html>

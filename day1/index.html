@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personal Information Program</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5568d8;
+        }
+
+        .profile {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f4f6ff;
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+        }
+
+        .profile h2 {
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .profile p {
+            margin: 12px 0;
+            color: #444;
+        }
+
+        .profile strong {
+            display: inline-block;
+            width: 100px;
+            color: #222;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Personal Information</h1>
+
+        <form method="POST">
+
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+            >
+
+            <label for="age">Age</label>
+            <input
+                type="number"
+                id="age"
+                name="age"
+                placeholder="Enter your age"
+                required
+            >
+
+            <label for="city">City</label>
+            <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="Enter your city"
+                required
+            >
+
+            <label for="college">College</label>
+            <input
+                type="text"
+                id="college"
+                name="college"
+                placeholder="Enter your college"
+                required
+            >
+
+            <label for="course">Course</label>
+            <input
+                type="text"
+                id="course"
+                name="course"
+                placeholder="Enter your course"
+                required
+            >
+
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number"
+                required
+            >
+
+            <button type="submit">Submit</button>
+
+        </form>
+
+        {% if profile %}
+
+        <div class="profile">
+
+            <h2>Personal Profile</h2>
+
+            <p>
+                <strong>Name:</strong>
+                {{ profile.name }}
+            </p>
+
+            <p>
+                <strong>Age:</strong>
+                {{ profile.age }}
+            </p>
+
+            <p>
+                <strong>City:</strong>
+                {{ profile.city }}
+            </p>
+
+            <p>
+                <strong>College:</strong>
+                {{ profile.college }}
+            </p>
+
+            <p>
+                <strong>Course:</strong>
+                {{ profile.course }}
+            </p>
+
+            <p>
+                <strong>Phone No:</strong>
+                {{ profile.phone }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+{
+    "students": [
+        {"id": 101, "name": "Aarav", "department": "CSE", "marks": 85},
+        {"id": 102, "name": "Diya", "department": "ISE", "marks": 92},
+        {"id": 103, "name": "Rohan", "department": "CSE", "marks": 76},
+        {"id": 104, "name": "Meera", "department": "ECE", "marks": 88},
+        {"id": 105, "name": "Kiran", "department": "ISE", "marks": 67},
+        {"id": 106, "name": "Ananya", "department": "CSE", "marks": 95},
+        {"id": 107, "name": "Vikram", "department": "ECE", "marks": 72},
+        {"id": 108, "name": "Sneha", "department": "CSE", "marks": 39},
+        {"id": 109, "name": "Rahul", "department": "ISE", "marks": 81},
+        {"id": 110, "name": "Pooja", "department": "ECE", "marks": 56},
+        {"id": 111, "name": "Arjun", "department": "CSE", "marks": 91},
+        {"id": 112, "name": "Kavya", "department": "ISE", "marks": 43},
+        {"id": 113, "name": "Rakesh", "department": "ECE", "marks": 64},
+        {"id": 114, "name": "Isha", "department": "CSE", "marks": 78},
+        {"id": 115, "name": "Aditya", "department": "ISE", "marks": 34},
+        {"id": 116, "name": "Nisha", "department": "ECE", "marks": 96},
+        {"id": 117, "name": "Varun", "department": "CSE", "marks": 62},
+        {"id": 118, "name": "Priya", "department": "ISE", "marks": 87},
+        {"id": 119, "name": "Manoj", "department": "ECE", "marks": 48},
+        {"id": 120, "name": "Sahana", "department": "CSE", "marks": 100},
+        {"id": 121, "name": "Karthik", "department": "ISE", "marks": 73},
+        {"id": 122, "name": "Divya", "department": "ECE", "marks": 82},
+        {"id": 123, "name": "Abhishek", "department": "CSE", "marks": 29},
+        {"id": 124, "name": "Neha", "department": "ISE", "marks": 90},
+        {"id": 125, "name": "Sanjay", "department": "ECE", "marks": 58}
+    ]
+}

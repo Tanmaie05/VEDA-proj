@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Salary Calculator</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            color: #1e293b;
+
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(79, 70, 229, 0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .calculate-btn:hover {
+            background: #4338ca;
+        }
+
+        .error {
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .employee-info {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+
+            padding: 18px;
+
+            border-radius: 12px;
+        }
+
+        .info-box span {
+            display: block;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+        }
+
+        .info-box strong {
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+        }
+
+        td:last-child,
+        th:last-child {
+            text-align: right;
+        }
+
+        .section-title {
+            margin-top: 25px;
+
+            margin-bottom: 10px;
+
+            font-size: 19px;
+        }
+
+        .summary {
+            max-width: 500px;
+
+            margin-left: auto;
+
+            margin-top: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            padding: 11px 0;
+
+            font-size: 16px;
+        }
+
+        .gross {
+            font-weight: bold;
+
+            border-top:
+                2px solid #cbd5e1;
+
+            margin-top: 10px;
+
+            padding-top: 15px;
+        }
+
+        .net {
+            margin-top: 10px;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background: #eef2ff;
+
+            font-size: 23px;
+
+            font-weight: bold;
+        }
+
+        .rules {
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f8fafc;
+
+            border-radius: 12px;
+        }
+
+        .rules h3 {
+            margin-bottom: 12px;
+        }
+
+        .rules ul {
+            padding-left: 20px;
+
+            line-height: 1.8;
+
+            color: #475569;
+        }
+
+        .empty {
+            text-align: center;
+
+            color: #64748b;
+
+            padding: 30px;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid,
+            .employee-info {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>💼 Employee Salary Calculator</h1>
+
+        <p>
+            Calculate gross salary,
+            deductions and net salary
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>👤 Employee Details</h2>
+
+
+        {% if error %}
+
+        <div class="error">
+            ⚠️ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Employee Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="employee_name"
+                        placeholder="Enter employee name"
+                        value="{{ employee_name }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Employee ID
+                    </label>
+
+                    <input
+                        type="text"
+                        name="employee_id"
+                        placeholder="Enter employee ID"
+                        value="{{ employee_id }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Basic Salary (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="basic_salary"
+                        placeholder="Enter basic salary"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="calculate-btn"
+            >
+                Calculate Salary
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% if salary %}
+
+
+    <div class="card">
+
+        <h2>📊 Salary Breakdown</h2>
+
+
+        <div class="employee-info">
+
+
+            <div class="info-box">
+
+                <span>
+                    Employee Name
+                </span>
+
+                <strong>
+                    {{ employee_name }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    Employee ID
+                </span>
+
+                <strong>
+                    {{ employee_id }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <h3 class="section-title">
+            Earnings
+        </h3>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Component
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        Basic Salary
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.basic_salary
+                        ) }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        HRA
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.hra
+                        ) }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        DA
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.da
+                        ) }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Special Allowance
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.special_allowance
+                        ) }}
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <div class="summary">
+
+
+            <div class="summary-row gross">
+
+                <span>
+                    Gross Salary
+                </span>
+
+                <strong>
+                    ₹{{ "%.2f"|format(
+                        salary.gross_salary
+                    ) }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <h3 class="section-title">
+            📉 Deductions
+        </h3>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Deduction
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        PF
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.pf
+                        ) }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Income Tax
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.income_tax
+                        ) }}
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        Professional Tax
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(
+                            salary.professional_tax
+                        ) }}
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <div class="summary">
+
+
+            <div class="summary-row gross">
+
+                <span>
+                    Total Deductions
+                </span>
+
+                <strong>
+                    ₹{{ "%.2f"|format(
+                        salary.total_deductions
+                    ) }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row net">
+
+                <span>
+                    Net Salary
+                </span>
+
+                <span>
+                    ₹{{ "%.2f"|format(
+                        salary.net_salary
+                    ) }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="rules">
+
+            <h3>
+                ⚙️ Current Salary Rules
+            </h3>
+
+            <ul>
+
+                <li>
+                    HRA: 20% of Basic Salary
+                </li>
+
+                <li>
+                    DA: 10% of Basic Salary
+                </li>
+
+                <li>
+                    Special Allowance:
+                    5% of Basic Salary
+                </li>
+
+                <li>
+                    PF: 12% of Basic Salary
+                </li>
+
+                <li>
+                    Professional Tax: ₹200
+                </li>
+
+                <li>
+                    Income Tax:
+                    0%, 5% or 10%
+                    depending on gross salary
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="card empty">
+
+        <h3>
+            📋 Salary breakdown will appear here
+        </h3>
+
+        <p>
+            Enter employee details above
+            and calculate the salary.
+        </p>
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>

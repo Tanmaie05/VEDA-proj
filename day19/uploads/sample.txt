@@ -1,0 +1,5 @@
+Python is a powerful programming language.
+Python is easy to learn and easy to use.
+Programming with Python is fun.
+Flask can be used to build Python web applications.
+Learning Python helps developers build useful applications.

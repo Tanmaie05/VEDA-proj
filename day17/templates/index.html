@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bank Account Simulator</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            color: #1e293b;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+        }
+
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 38px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .header p {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .card h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+
+        .form-group label {
+
+            font-weight: bold;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        input:focus {
+
+            border-color: #4f46e5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(79, 70, 229, 0.1);
+
+        }
+
+
+        button {
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 13px 20px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .primary-btn {
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        .primary-btn:hover {
+
+            background: #4338ca;
+
+        }
+
+
+        .deposit-btn {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .withdraw-btn {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        .reset-btn {
+
+            background: #e2e8f0;
+
+            color: #334155;
+
+        }
+
+
+        .action-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .action-box {
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            background: #f8fafc;
+
+        }
+
+
+        .action-box h3 {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .balance-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #6366f1
+                );
+
+            color: white;
+
+        }
+
+
+        .balance-label {
+
+            color: #e0e7ff;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .balance {
+
+            font-size: 38px;
+
+            font-weight: bold;
+
+        }
+
+
+        .account-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .info-box {
+
+            background:
+                rgba(255, 255, 255, 0.15);
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+        }
+
+
+        .info-box span {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #e0e7ff;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .info-box strong {
+
+            font-size: 17px;
+
+        }
+
+
+        .success {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .error {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 15px;
+
+        }
+
+
+        th,
+        td {
+
+            padding: 15px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            text-align: left;
+
+        }
+
+
+        th {
+
+            background: #f1f5f9;
+
+        }
+
+
+        td:last-child,
+        th:last-child {
+
+            text-align: right;
+
+        }
+
+
+        .deposit-text {
+
+            color: #15803d;
+
+            font-weight: bold;
+
+        }
+
+
+        .withdraw-text {
+
+            color: #dc2626;
+
+            font-weight: bold;
+
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            color: #64748b;
+
+            padding: 30px;
+
+        }
+
+
+        .menu-title {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .form-grid,
+            .action-grid,
+            .account-info {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .card {
+
+                padding: 20px;
+
+            }
+
+
+            .balance {
+
+                font-size: 30px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>🏦 Bank Account Simulator</h1>
+
+        <p>
+            A simple menu-driven banking
+            application using Python and Flask
+        </p>
+
+    </div>
+
+
+    {% if message %}
+
+    <div class="success">
+
+        ✅ {{ message }}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if error %}
+
+    <div class="error">
+
+        ⚠️ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if not account %}
+
+
+    <div class="card">
+
+        <h2>🏦 Create Bank Account</h2>
+
+        <form method="POST">
+
+            <input
+                type="hidden"
+                name="action"
+                value="create_account"
+            >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Account Holder Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="account_holder"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Initial Deposit (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="initial_balance"
+                        placeholder="Enter initial deposit"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-btn"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="card balance-card">
+
+        <div class="balance-label">
+            CURRENT BALANCE
+        </div>
+
+
+        <div class="balance">
+
+            ₹{{ "%.2f"|format(
+                account.balance
+            ) }}
+
+        </div>
+
+
+        <div class="account-info">
+
+
+            <div class="info-box">
+
+                <span>
+                    Account Holder
+                </span>
+
+                <strong>
+                    {{ account.account_holder }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    Total Transactions
+                </span>
+
+                <strong>
+                    {{ transactions|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 class="menu-title">
+            📋 Banking Menu
+        </h2>
+
+
+        <div class="action-grid">
+
+
+            <div class="action-box">
+
+                <h3>💰 Deposit Money</h3>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="action"
+                        value="deposit"
+                    >
+
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Enter amount"
+                        min="0.01"
+                        step="0.01"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="primary-btn deposit-btn"
+                    >
+                        Deposit
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div class="action-box">
+
+                <h3>💸 Withdraw Money</h3>
+
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="action"
+                        value="withdraw"
+                    >
+
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Enter amount"
+                        min="0.01"
+                        step="0.01"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="primary-btn withdraw-btn"
+                    >
+                        Withdraw
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <form method="POST">
+
+            <input
+                type="hidden"
+                name="action"
+                value="reset"
+            >
+
+            <button
+                type="submit"
+                class="primary-btn reset-btn"
+            >
+                🔄 Reset Account
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>📜 Transaction History</h2>
+
+
+        {% if transactions %}
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        #
+                    </th>
+
+                    <th>
+                        Transaction
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Balance After Transaction
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for transaction in transactions %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+
+                    <td>
+
+                        {% if transaction.type == "Deposit" %}
+
+                        <span class="deposit-text">
+                            ➕ {{ transaction.type }}
+                        </span>
+
+                        {% else %}
+
+                        <span class="withdraw-text">
+                            ➖ {{ transaction.type }}
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        ₹{{ "%.2f"|format(
+                            transaction.amount
+                        ) }}
+
+                    </td>
+
+
+                    <td>
+
+                        ₹{{ "%.2f"|format(
+                            transaction.balance
+                        ) }}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+
+        <div class="empty">
+
+            <p>
+                No transactions yet.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>
