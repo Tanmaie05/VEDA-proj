@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date & Time Utility</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container { max-width: 950px; margin: auto; }
+
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { color: #4338ca; }
+        header p { color: #64748b; line-height: 1.6; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 23px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px #0f172a0b;
+        }
+
+        h2 { font-size: 19px; color: #3730a3; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover { background: #3730a3; }
+
+        .message {
+            margin: 20px 0;
+            padding: 16px;
+            border-radius: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 28px;
+            color: #64748b;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <h1>📅 Date & Time Utility</h1>
+        <p>Calculate ages, compare dates, count working days, and format dates.</p>
+    </header>
+
+    {% if result %}
+        <div class="message success">
+            <strong>Result:</strong> {{ result }}
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="message error">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+
+    <div class="grid">
+        <section class="card">
+            <h2>1. Calculate Age</h2>
+            <form method="POST">
+                <input type="hidden" name="operation" value="age">
+                <label for="dob">Date of birth</label>
+                <input id="dob" type="date" name="dob"
+                       max="{{ today }}" required>
+                <button type="submit">Calculate Age</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>2. Days Between Dates</h2>
+            <form method="POST">
+                <input type="hidden" name="operation" value="difference">
+                <label for="start1">Start date</label>
+                <input id="start1" type="date" name="start_date" required>
+                <label for="end1">End date</label>
+                <input id="end1" type="date" name="end_date" required>
+                <button type="submit">Calculate Difference</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>3. Working Days</h2>
+            <form method="POST">
+                <input type="hidden" name="operation" value="working">
+                <label for="start2">Start date</label>
+                <input id="start2" type="date" name="start_date" required>
+                <label for="end2">End date</label>
+                <input id="end2" type="date" name="end_date" required>
+                <button type="submit">Count Working Days</button>
+            </form>
+            <p style="color:#64748b;font-size:13px;">
+                Counts Monday to Friday, including the start and end dates.
+                Public holidays are not excluded.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>4. Format a Date</h2>
+            <form method="POST">
+                <input type="hidden" name="operation" value="format">
+                <label for="format_date">Choose a date</label>
+                <input id="format_date" type="date" name="format_date"
+                       required>
+                <label for="format_choice">Display format</label>
+                <select id="format_choice" name="format_choice" required>
+                    <option value="long">October 15, 2026</option>
+                    <option value="short">15-10-2026</option>
+                    <option value="iso">2026-10-15</option>
+                    <option value="weekday">Thursday, 15 October 2026</option>
+                </select>
+                <button type="submit">Format Date</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>5. Current Date & Time</h2>
+            <p>View the current date and time on the computer running Flask.</p>
+            <form method="POST">
+                <input type="hidden" name="operation" value="current">
+                <button type="submit">Show Current Date & Time</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>V-Internship | Python Programming Track | Day 26</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log File Analyzer</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 28px 16px;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .container { max-width: 1050px; margin: auto; }
+
+        header { text-align: center; margin-bottom: 28px; }
+        header h1 { color: #4338ca; }
+        header p { color: #64748b; line-height: 1.6; }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px #0f172a0b;
+            min-width: 0;
+        }
+
+        h2 { color: #3730a3; font-size: 20px; }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        button {
+            padding: 12px 16px;
+            background: #4f46e5;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { background: #3730a3; }
+
+        .sample-button { background: #0f766e; }
+        .sample-button:hover { background: #115e59; }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px #0f172a0b;
+        }
+
+        .stat span { color: #64748b; font-size: 13px; }
+        .stat strong {
+            display: block;
+            margin-top: 10px;
+            font-size: 28px;
+            color: #4338ca;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 13px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+        }
+
+        .tables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .table-wrap { overflow-x: auto; }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 11px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            overflow-wrap: anywhere;
+        }
+
+        th { background: #eef2ff; color: #3730a3; }
+
+        .badge {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <h1>📊 Log File Analyzer</h1>
+        <p>Analyze server requests, HTTP errors, IP addresses, and endpoints.</p>
+    </header>
+
+    <section class="card">
+        <h2>Upload a Server Log</h2>
+        <p>Select a .log or .txt access-log file (maximum 2 MB).</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="upload">
+            <input type="file" name="logfile" accept=".log,.txt">
+            <button type="submit">Analyze Log File</button>
+        </form>
+
+        <hr style="border:0;border-top:1px solid #e2e8f0;margin:20px 0;">
+
+        <form method="POST">
+            <input type="hidden" name="action" value="sample">
+            <button type="submit" class="sample-button">
+                Try Sample Log Data
+            </button>
+        </form>
+    </section>
+
+    {% if error %}
+        <div class="error"><strong>Error:</strong> {{ error }}</div>
+    {% endif %}
+
+    {% if report %}
+        <div class="success">
+            Analysis complete: <strong>{{ filename }}</strong>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span>Total Requests</span>
+                <strong>{{ report.total_requests }}</strong>
+            </div>
+            <div class="stat">
+                <span>Error Responses (4xx/5xx)</span>
+                <strong>{{ report.error_count }}</strong>
+            </div>
+            <div class="stat">
+                <span>Successful / Redirected</span>
+                <strong>{{ report.success_count }}</strong>
+            </div>
+            <div class="stat">
+                <span>Malformed Lines Skipped</span>
+                <strong>{{ report.malformed_count }}</strong>
+            </div>
+        </div>
+
+        <div class="tables">
+            <section class="card">
+                <h2>Top IP Addresses</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>IP Address</th><th>Requests</th></tr></thead>
+                        <tbody>
+                        {% for ip, count in report.top_ips %}
+                            <tr><td>{{ ip }}</td><td>{{ count }}</td></tr>
+                        {% else %}
+                            <tr><td colspan="2">No data available</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Most Requested Endpoints</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Endpoint</th><th>Requests</th></tr></thead>
+                        <tbody>
+                        {% for endpoint, count in report.top_endpoints %}
+                            <tr><td>{{ endpoint }}</td><td>{{ count }}</td></tr>
+                        {% else %}
+                            <tr><td colspan="2">No data available</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>HTTP Status Codes</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Status</th><th>Count</th></tr></thead>
+                        <tbody>
+                        {% for status, count in report.status_counts %}
+                            <tr><td>{{ status }}</td><td>{{ count }}</td></tr>
+                        {% else %}
+                            <tr><td colspan="2">No data available</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>HTTP Methods</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Method</th><th>Count</th></tr></thead>
+                        <tbody>
+                        {% for method, count in report.method_counts %}
+                            <tr><td>{{ method }}</td><td>{{ count }}</td></tr>
+                        {% else %}
+                            <tr><td colspan="2">No data available</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <section class="card">
+            <h2>Parsed Log Entries</h2>
+            <p>Showing up to 100 valid entries.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Method</th>
+                            <th>Endpoint</th>
+                            <th>Status</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for entry in report.entries %}
+                        <tr>
+                            <td>{{ entry.ip }}</td>
+                            <td>{{ entry.method }}</td>
+                            <td>{{ entry.endpoint }}</td>
+                            <td>
+                                {% if entry.status >= 400 %}
+                                    <span class="badge">{{ entry.status }}</span>
+                                {% else %}
+                                    {{ entry.status }}
+                                {% endif %}
+                            </td>
+                            <td>{{ entry.time }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5">No entries available</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    {% endif %}
+
+    <footer>V-Internship | Python Programming Track | Day 30</footer>
+</div>
+</body>
+</html>

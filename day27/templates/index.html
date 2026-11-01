@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse API | Explore the Web</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #101326;
+            --panel: #191d36;
+            --purple: #9a8cff;
+            --text: #f6f5ff;
+            --muted: #a6acc7;
+            --line: rgba(255,255,255,.10);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 10% 0%, #30275c 0, transparent 38%),
+                radial-gradient(ellipse at 100% 40%, #153c52 0, transparent 32%),
+                var(--bg);
+        }
+
+        .container {
+            width: min(1000px, 92%);
+            margin: auto;
+            padding: 30px 0 60px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 65px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #b5a9ff, #7564f5);
+            color: #15132c;
+            font-size: 22px;
+        }
+
+        .status {
+            color: #7ef0c1;
+            border: 1px solid #367b6c;
+            background: #163a37;
+            border-radius: 50px;
+            padding: 8px 13px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero {
+            margin-bottom: 35px;
+            animation: appear .65s ease both;
+        }
+
+        .eyebrow {
+            color: #b2a6ff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3, p { margin-top: 0; }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(38px, 7vw, 65px);
+            letter-spacing: -2px;
+            line-height: 1.08;
+            margin: 17px 0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(100deg, #b8adff, #70e3d0);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 560px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .search-card {
+            background: rgba(29, 34, 62, .85);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 22px 65px #05071145;
+            backdrop-filter: blur(14px);
+            animation: appear .8s ease both;
+        }
+
+        .label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c3c7df;
+            letter-spacing: 1.5px;
+            margin-bottom: 14px;
+        }
+
+        form {
+            display: flex;
+            gap: 12px;
+        }
+
+        input {
+            width: 100%;
+            min-width: 0;
+            background: #11152b;
+            color: white;
+            border: 1px solid #3c4263;
+            border-radius: 12px;
+            padding: 16px;
+            font: inherit;
+            outline: none;
+            transition: border .2s, box-shadow .2s;
+        }
+
+        input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px #9a8cff22;
+        }
+
+        button {
+            flex-shrink: 0;
+            border: none;
+            border-radius: 12px;
+            padding: 0 23px;
+            font: inherit;
+            font-weight: 700;
+            color: #17132e;
+            background: linear-gradient(135deg, #c0b6ff, #9382ff);
+            cursor: pointer;
+            transition: transform .2s, filter .2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        button:active { transform: scale(.98); }
+
+        .hint {
+            margin: 13px 0 0;
+            font-size: 12px;
+            color: #858eae;
+        }
+
+        .result-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 17px;
+        }
+
+        .result-heading h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 23px;
+            margin: 0;
+        }
+
+        .result-card {
+            background: #f7f7fc;
+            color: #20233c;
+            border-radius: 22px;
+            padding: clamp(22px, 5vw, 38px);
+            box-shadow: 0 25px 70px #00000030;
+            animation: appear .45s ease both;
+        }
+
+        .post-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .post-number {
+            background: #e9e5ff;
+            color: #6350ca;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .post-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #777b92;
+        }
+
+        .result-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(25px, 4vw, 38px);
+            letter-spacing: -.8px;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        .post-body {
+            color: #62677e;
+            line-height: 1.9;
+            font-size: 15px;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 22px;
+        }
+
+        .tag {
+            color: #5d4bc0;
+            background: #eae6ff;
+            padding: 7px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .stat {
+            padding: 19px;
+            background: #fff;
+            border: 1px solid #e9e9f3;
+            border-radius: 15px;
+        }
+
+        .stat-label {
+            display: block;
+            color: #777b92;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 9px;
+        }
+
+        .stat strong {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+        }
+
+        .error-card {
+            padding: 18px;
+            color: #ffc2cb;
+            background: #481f34;
+            border: 1px solid #7d354f;
+            border-radius: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .empty {
+            padding: 35px 20px;
+            text-align: center;
+            border: 1px dashed #484568;
+            border-radius: 18px;
+            color: var(--muted);
+        }
+
+        .empty-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        footer {
+            text-align: center;
+            color: #767e9d;
+            font-size: 12px;
+            margin-top: 50px;
+        }
+
+        @keyframes appear {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding-top: 22px; }
+            nav { margin-bottom: 48px; }
+            form { flex-direction: column; }
+            button { padding: 15px; }
+            .search-card { padding: 19px; }
+            .stats { gap: 10px; }
+            .stat { padding: 15px; }
+        }
+    </style>
+</head>
+
+<body>
+<main class="container">
+
+    <nav>
+        <div class="brand">
+            <div class="logo">⌁</div>
+            <span>PULSE API</span>
+        </div>
+        <div class="status">● API EXPLORER</div>
+    </nav>
+
+    <section class="hero">
+        <div class="eyebrow">Your window to the web</div>
+        <h1>Every post has<br><span class="gradient-text">a story.</span></h1>
+        <p>
+            Fetch sample content, explore API responses, and discover
+            the data behind every post — all in one place.
+        </p>
+    </section>
+
+    <section class="search-card">
+        <label class="label" for="post_id">SEARCH THE COLLECTION</label>
+
+        <form method="POST" action="/">
+            <input
+                id="post_id"
+                type="number"
+                name="post_id"
+                min="1"
+                step="1"
+                placeholder="Enter a post ID, e.g. 29"
+                value="{{ post_id_value }}"
+                required
+            >
+            <button type="submit">↗ Fetch Post</button>
+        </form>
+
+        <p class="hint">✦ Connected to the DummyJSON sample API</p>
+    </section>
+
+    {% if error %}
+        <div class="error-card">
+            <strong>Something went wrong</strong><br>
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if post %}
+        <section>
+            <div class="result-heading">
+                <h2>Discovery</h2>
+                <span class="eyebrow">FETCH SUCCESSFUL</span>
+            </div>
+
+            <article class="result-card">
+                <div class="post-top">
+                    <span class="post-number">
+                        POST / {{ "%03d"|format(post.id|int) }}
+                    </span>
+                    <span class="post-label">API RESPONSE · JSON</span>
+                </div>
+
+                <h3>{{ post.title }}</h3>
+                <p class="post-body">{{ post.body }}</p>
+
+                {% if post.tags %}
+                    <div class="tags">
+                        {% for tag in post.tags %}
+                            <span class="tag"># {{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-label">AUTHOR ID</span>
+                        <strong>{{ post.userId }}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span class="stat-label">TOTAL VIEWS</span>
+                        <strong>{{ post.views }}</strong>
+                    </div>
+                </div>
+            </article>
+        </section>
+    {% else %}
+        {% if not error %}
+            <section class="empty">
+                <div class="empty-icon">✧</div>
+                <h3>Ready for discovery?</h3>
+                <p>Enter a post ID above to reveal your first result.</p>
+            </section>
+        {% endif %}
+    {% endif %}
+
+    <footer>
+        PULSE API · Built with Python & Flask · Powered by DummyJSON
+    </footer>
+
+</main>
+</body>
+</html>
