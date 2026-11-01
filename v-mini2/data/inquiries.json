@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "customer": "Ananya Rao",
+        "subject": "Python Training",
+        "message": "Interested in joining Python training.",
+        "status": "New"
+    },
+    {
+        "id": 2,
+        "customer": "Rahul Sharma",
+        "subject": "Web Development",
+        "message": "Requesting details about web development services.",
+        "status": "In Progress"
+    },
+    {
+        "customer": "Pooja Sharma",
+        "subject": "Java Full Stack",
+        "message": "Requesting details about internship",
+        "id": 3,
+        "status": "New"
+    }
+]

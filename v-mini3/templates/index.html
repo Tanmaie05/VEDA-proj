@@ -1,0 +1,1752 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendWise | Personal Finance Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary: #6957e8;
+            --primary-dark: #5140c8;
+            --navy: #171a35;
+            --background: #f5f5fc;
+            --text: #24243c;
+            --muted: #9394a8;
+            --border: #ededf5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .app-wrapper {
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            background: var(--navy);
+            min-height: 100vh;
+            padding: 28px 18px;
+            color: white;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 42px;
+            padding-left: 8px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8d7bff, #5948d9);
+            font-size: 21px;
+            box-shadow: 0 5px 18px #6957e855;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .brand-name span {
+            color: #9d91ff;
+        }
+
+        .menu-label {
+            font-size: 10px;
+            color: #747b9b;
+            letter-spacing: 2px;
+            font-weight: 700;
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .side-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: #aeb3cb;
+            text-decoration: none;
+            padding: 13px 14px;
+            border-radius: 11px;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        .side-link i {
+            font-size: 17px;
+        }
+
+        .side-link:hover,
+        .side-link.active {
+            background: linear-gradient(100deg, #6957e8, #5545c8);
+            color: white;
+            box-shadow: 0 6px 18px #6957e844;
+            transform: translateX(3px);
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+        }
+
+        .profile-box {
+            background: #252947;
+            border-radius: 14px;
+            padding: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #8c7aff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        /* MAIN */
+
+        .main-content {
+            padding: 32px 38px;
+            max-width: 1600px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 27px;
+        }
+
+        .page-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 27px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .subheading {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .date-pill {
+            background: white;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            color: #66647c;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(115deg, #5140c8, #7865f4, #9b82f7);
+            color: white;
+            border-radius: 21px;
+            padding: 30px 32px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 12px 30px #6957e82b;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border: 1px solid #ffffff25;
+            border-radius: 50%;
+            right: -55px;
+            top: -115px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid #ffffff20;
+            border-radius: 50%;
+            right: 80px;
+            bottom: -130px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            font-size: 12px;
+            opacity: .85;
+            letter-spacing: 1px;
+        }
+
+        .hero-amount {
+            font-family: 'Outfit', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin: 8px 0;
+        }
+
+        .hero-note {
+            font-size: 12px;
+            opacity: .85;
+        }
+
+        .hero-btn {
+            background: white;
+            color: #5d4bd5;
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 11px 17px;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .hero-btn:hover {
+            background: #f0edff;
+            color: #5140c8;
+            transform: translateY(-2px);
+        }
+
+        /* STAT CARDS */
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 17px;
+            height: 100%;
+            transition: .25s;
+        }
+
+        .stat-card:hover,
+        .panel:hover {
+            box-shadow: 0 10px 28px #2520440b;
+            transform: translateY(-2px);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 43px;
+            height: 43px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 13px;
+            font-size: 19px;
+        }
+
+        .purple {
+            color: #7059e8;
+            background: #f0edff;
+        }
+
+        .green {
+            color: #16a475;
+            background: #e6f8f0;
+        }
+
+        .orange {
+            color: #ed9638;
+            background: #fff2e2;
+        }
+
+        .blue {
+            color: #4388dc;
+            background: #eaf3ff;
+        }
+
+        .stat-title {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 18px;
+        }
+
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 25px;
+            font-weight: 800;
+            margin: 5px 0;
+        }
+
+        .stat-caption {
+            font-size: 11px;
+            color: #a1a1b1;
+        }
+
+        /* PANELS */
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 23px;
+            border-radius: 17px;
+            margin-bottom: 22px;
+            transition: .25s;
+        }
+
+        .panel-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .panel-subtitle {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .section-icon {
+            width: 35px;
+            height: 35px;
+            background: #f0edff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 17px;
+        }
+
+        /* FORMS */
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #66667e;
+            margin-bottom: 7px;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #e9e8f2;
+            background: #fafaff;
+            border-radius: 10px;
+            padding: 11px 13px;
+            font-size: 12px;
+            box-shadow: none !important;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #8676ed;
+            background: white;
+        }
+
+        .btn-main {
+            background: linear-gradient(110deg, #6957e8, #8873f4);
+            border: none;
+            color: white;
+            padding: 12px 17px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .btn-main:hover {
+            background: #5140c8;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px #6957e844;
+        }
+
+        .btn-soft {
+            background: #f0edff;
+            color: #6552d6;
+            border: none;
+            border-radius: 9px;
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* BUDGET */
+
+        .budget-progress {
+            height: 11px;
+            background: #efedf8;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .budget-fill {
+            height: 100%;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #6957e8, #a18df9);
+            transition: width .6s ease;
+        }
+
+        .budget-fill.over {
+            background: linear-gradient(90deg, #ef6464, #ff9b77);
+        }
+
+        .budget-status {
+            font-size: 12px;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .budget-ok {
+            background: #e9f9f1;
+            color: #16865a;
+        }
+
+        .budget-over {
+            background: #fff0f0;
+            color: #d44b4b;
+        }
+
+        /* CATEGORY */
+
+        .category-row {
+            margin-top: 19px;
+        }
+
+        .category-heading {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .category-track {
+            height: 8px;
+            background: #f0eff7;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .category-bar {
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #7160ec, #a48ef9);
+        }
+
+        .category-row:nth-child(2) .category-bar {
+            background: linear-gradient(90deg, #2fbb98, #79dfb6);
+        }
+
+        .category-row:nth-child(3) .category-bar {
+            background: linear-gradient(90deg, #f1a34b, #ffd18a);
+        }
+
+        .category-row:nth-child(4) .category-bar {
+            background: linear-gradient(90deg, #4d9be5, #8bc4ff);
+        }
+
+        /* TABLE */
+
+        .table {
+            margin-top: 16px;
+            white-space: nowrap;
+        }
+
+        .table thead th {
+            color: #9998ad;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding: 13px 10px;
+        }
+
+        .table tbody td {
+            font-size: 12px;
+            padding: 15px 10px;
+            border-color: #f1f0f7;
+            vertical-align: middle;
+        }
+
+        .category-badge {
+            padding: 6px 10px;
+            border-radius: 7px;
+            background: #f0edff;
+            color: #6552d6;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .amount-text {
+            font-weight: 800;
+            color: #34334e;
+        }
+
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: #f2efff;
+            color: #6957e8;
+            font-size: 13px;
+        }
+
+        .delete-btn {
+            background: #fff0f0;
+            color: #e15d5d;
+        }
+
+        /* SEARCH */
+
+        .search-panel {
+            background: linear-gradient(120deg, #fff, #f9f8ff);
+        }
+
+        /* FLASH */
+
+        .alert {
+            border: none;
+            border-radius: 11px;
+            font-size: 12px;
+        }
+
+        footer {
+            text-align: center;
+            color: #aaa9b9;
+            font-size: 11px;
+            padding: 20px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 767px) {
+            .sidebar {
+                position: relative;
+                height: auto;
+                min-height: auto;
+                padding: 18px;
+            }
+
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .brand {
+                margin-bottom: 15px;
+            }
+
+            .side-link {
+                display: inline-flex;
+                margin: 3px;
+                padding: 9px;
+                font-size: 11px;
+            }
+
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .hero {
+                padding: 24px;
+            }
+
+            .hero-amount {
+                font-size: 30px;
+            }
+
+            .page-heading {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid app-wrapper">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <aside class="col-md-2 sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+                <div class="brand-name">
+                    Spend<span>Wise.</span>
+                </div>
+            </div>
+
+            <div class="menu-label">WORKSPACE</div>
+
+            <a href="/" class="side-link active">
+                <i class="bi bi-grid-fill"></i>
+                Dashboard
+            </a>
+
+            <a href="#add-expense" class="side-link">
+                <i class="bi bi-plus-circle"></i>
+                Add Expense
+            </a>
+
+            <a href="#transactions" class="side-link">
+                <i class="bi bi-receipt"></i>
+                Transactions
+            </a>
+
+            <a href="#budget" class="side-link">
+                <i class="bi bi-pie-chart"></i>
+                My Budget
+            </a>
+
+            <a href="#analytics" class="side-link">
+                <i class="bi bi-bar-chart-line"></i>
+                Analytics
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="profile-box">
+                    <div class="profile-avatar">S</div>
+                    <div>
+                        <div style="font-size:12px;font-weight:700;">
+                            My Account
+                        </div>
+                        <div style="font-size:10px;color:#9ba3c0;">
+                            Personal Finance
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="col-md-10 main-content">
+
+            <!-- TOPBAR -->
+            <div class="topbar">
+
+                <div>
+                    <h2 class="page-heading">Good day! 👋</h2>
+                    <p class="subheading">
+                        Here's your financial overview for today.
+                    </p>
+                </div>
+
+                <div class="date-pill">
+                    <i class="bi bi-calendar3 me-2"></i>
+                    {{ today }}
+                </div>
+
+            </div>
+
+
+            <!-- FLASH MESSAGES -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show">
+                            <i class="bi bi-info-circle me-2"></i>
+                            {{ message }}
+
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+
+            <!-- HERO -->
+            <section class="hero">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-8 hero-content">
+
+                        <div class="hero-label">
+                            YOUR MONTHLY SPENDING
+                        </div>
+
+                        <div class="hero-amount">
+                            ₹{{ "%.2f"|format(summary.total_month) }}
+                        </div>
+
+                        <div class="hero-note">
+                            <i class="bi bi-stars me-1"></i>
+                            Every small expense matters. Stay in control!
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 text-md-end mt-4 mt-md-0 hero-content">
+
+                        <a href="#add-expense" class="hero-btn">
+                            <i class="bi bi-plus-lg me-2"></i>
+                            Add New Expense
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <div class="row g-3 mb-4">
+
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <div class="stat-icon purple">
+                                <i class="bi bi-wallet2"></i>
+                            </div>
+                            <i class="bi bi-three-dots muted"></i>
+                        </div>
+
+                        <div class="stat-title">Today's Spending</div>
+
+                        <div class="stat-value">
+                            ₹{{ "%.2f"|format(summary.total_today) }}
+                        </div>
+
+                        <div class="stat-caption">
+                            Expenses recorded today
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <div class="stat-icon green">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <i class="bi bi-three-dots muted"></i>
+                        </div>
+
+                        <div class="stat-title">Monthly Spending</div>
+
+                        <div class="stat-value">
+                            ₹{{ "%.2f"|format(summary.total_month) }}
+                        </div>
+
+                        <div class="stat-caption">
+                            Current month total
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <div class="stat-icon orange">
+                                <i class="bi bi-bullseye"></i>
+                            </div>
+                            <i class="bi bi-three-dots muted"></i>
+                        </div>
+
+                        <div class="stat-title">Monthly Budget</div>
+
+                        <div class="stat-value">
+                            {% if summary.budget is not none %}
+                                ₹{{ "%.2f"|format(summary.budget) }}
+                            {% else %}
+                                Not Set
+                            {% endif %}
+                        </div>
+
+                        <div class="stat-caption">
+                            Your spending limit
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+                            <div class="stat-icon blue">
+                                <i class="bi bi-piggy-bank"></i>
+                            </div>
+                            <i class="bi bi-three-dots muted"></i>
+                        </div>
+
+                        <div class="stat-title">Remaining Budget</div>
+
+                        <div class="stat-value">
+                            {% if summary.remaining_budget is not none %}
+                                ₹{{ "%.2f"|format(summary.remaining_budget) }}
+                            {% else %}
+                                --
+                            {% endif %}
+                        </div>
+
+                        <div class="stat-caption">
+                            {% if summary.remaining_budget is not none and summary.remaining_budget < 0 %}
+                                Budget exceeded
+                            {% else %}
+                                Available to spend
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- FORMS ROW -->
+            <div class="row g-3">
+
+                <!-- ADD EXPENSE -->
+                <div class="col-lg-7" id="add-expense">
+
+                    <div class="panel">
+
+                        <div class="d-flex align-items-center gap-3 mb-4">
+
+                            <div class="section-icon">
+                                <i class="bi bi-plus-lg"></i>
+                            </div>
+
+                            <div>
+                                <div class="panel-title">
+                                    Add New Expense
+                                </div>
+                                <div class="panel-subtitle">
+                                    Record where your money goes.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <form action="/add" method="POST" id="expense-form">
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="form-label">
+                                        Expense Date
+                                    </label>
+
+                                    <input type="date"
+                                           name="date"
+                                           class="form-control"
+                                           value="{{ today }}"
+                                           required>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label class="form-label">
+                                        Amount (₹)
+                                    </label>
+
+                                    <input type="number"
+                                           name="amount"
+                                           class="form-control"
+                                           placeholder="0.00"
+                                           min="0.01"
+                                           step="0.01"
+                                           required>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label class="form-label">
+                                        Category
+                                    </label>
+
+                                    <select name="category"
+                                            id="category"
+                                            class="form-select"
+                                            required>
+
+                                        {% for category in categories %}
+                                            <option value="{{ category }}">
+                                                {{ category }}
+                                            </option>
+                                        {% endfor %}
+
+                                        <option value="__custom__">
+                                            + Create Custom Category
+                                        </option>
+
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-6"
+                                     id="custom-category-box"
+                                     style="display:none;">
+
+                                    <label class="form-label">
+                                        Custom Category
+                                    </label>
+
+                                    <input type="text"
+                                           id="custom-category"
+                                           class="form-control"
+                                           placeholder="Enter category">
+
+                                </div>
+
+
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        Description
+                                    </label>
+
+                                    <input type="text"
+                                           name="description"
+                                           class="form-control"
+                                           placeholder="What did you spend on?">
+                                </div>
+
+
+                                <div class="col-12 mt-4">
+
+                                    <button type="submit"
+                                            class="btn btn-main w-100">
+
+                                        <i class="bi bi-plus-circle me-2"></i>
+                                        Save Expense
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUDGET -->
+                <div class="col-lg-5" id="budget">
+
+                    <div class="panel">
+
+                        <div class="d-flex align-items-center gap-3 mb-4">
+
+                            <div class="section-icon">
+                                <i class="bi bi-bullseye"></i>
+                            </div>
+
+                            <div>
+                                <div class="panel-title">
+                                    Monthly Budget
+                                </div>
+
+                                <div class="panel-subtitle">
+                                    Set a target. Track your progress.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <form action="/set-budget" method="POST">
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Select Month
+                                </label>
+
+                                <input type="month"
+                                       name="month"
+                                       class="form-control"
+                                       value="{{ current_month }}"
+                                       required>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Budget Amount (₹)
+                                </label>
+
+                                <input type="number"
+                                       name="amount"
+                                       class="form-control"
+                                       placeholder="Enter your budget"
+                                       min="0.01"
+                                       step="0.01"
+                                       required>
+
+                            </div>
+
+
+                            <button class="btn btn-main w-100">
+                                <i class="bi bi-check-circle me-2"></i>
+                                Save Budget
+                            </button>
+
+                        </form>
+
+
+                        <hr class="my-4">
+
+
+                        {% if summary.budget is not none %}
+
+                            {% set spent = summary.total_month %}
+                            {% set budget = summary.budget %}
+                            {% set percentage = (spent / budget * 100) if budget > 0 else 0 %}
+                            {% set progress = [percentage, 100] | min %}
+
+                            <div class="d-flex justify-content-between mb-2">
+
+                                <span class="form-label mb-0">
+                                    Budget Progress
+                                </span>
+
+                                <strong style="font-size:12px;">
+                                    {{ "%.1f"|format(percentage) }}%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="budget-progress">
+
+                                  <progress class="budget-fill {% if percentage > 100 %}over{% endif %}"
+                                          max="100" value="{{ progress }}"></progress>
+
+                            </div>
+
+
+                            <div class="d-flex justify-content-between mt-3 mb-3">
+
+                                <div>
+                                    <div class="panel-subtitle">Spent</div>
+
+                                    <strong style="font-size:14px;">
+                                        ₹{{ "%.2f"|format(spent) }}
+                                    </strong>
+                                </div>
+
+                                <div class="text-end">
+                                    <div class="panel-subtitle">Budget</div>
+
+                                    <strong style="font-size:14px;">
+                                        ₹{{ "%.2f"|format(budget) }}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            {% if summary.remaining_budget >= 0 %}
+
+                                <div class="budget-status budget-ok">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+
+                                    You are within your budget!
+
+                                    <strong>
+                                        ₹{{ "%.2f"|format(summary.remaining_budget) }}
+                                    </strong>
+                                    remaining.
+                                </div>
+
+                            {% else %}
+
+                                <div class="budget-status budget-over">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                                    Budget exceeded by
+
+                                    <strong>
+                                        ₹{{ "%.2f"|format(-summary.remaining_budget) }}
+                                    </strong>.
+                                </div>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            <div class="text-center py-3">
+
+                                <i class="bi bi-piggy-bank"
+                                   style="font-size:32px;color:#aaa0ed;"></i>
+
+                                <p class="panel-subtitle mt-2">
+                                    Set your monthly budget to see your progress.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ANALYTICS -->
+            <div class="row g-3" id="analytics">
+
+                <div class="col-lg-7">
+
+                    <div class="panel">
+
+                        <div class="d-flex align-items-center gap-3 mb-3">
+
+                            <div class="section-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </div>
+
+                            <div>
+                                <div class="panel-title">
+                                    Category Breakdown
+                                </div>
+
+                                <div class="panel-subtitle">
+                                    Understand your monthly spending habits.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        {% if summary.category_totals %}
+
+                            {% set maximum = summary.category_totals.values() | max %}
+
+                            {% for category, total in summary.category_totals.items() %}
+
+                                {% set width = (total / maximum * 100) if maximum > 0 else 0 %}
+
+                                <div class="category-row">
+
+                                    <div class="category-heading">
+
+                                        <span>
+                                            {{ category }}
+                                        </span>
+
+                                        <span>
+                                            ₹{{ "%.2f"|format(total) }}
+                                        </span>
+
+                                    </div>
+
+                                    <div class="category-track">
+
+                                        <div class="category-bar"
+                                            data-width="{{ width }}">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="text-center py-5">
+                                <i class="bi bi-bar-chart"
+                                   style="font-size:35px;color:#c5c1e8;"></i>
+
+                                <p class="panel-subtitle mt-3">
+                                    Your category insights will appear here.
+                                </p>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-5">
+
+                    <div class="panel h-100">
+
+                        <div class="d-flex align-items-center gap-3 mb-4">
+
+                            <div class="section-icon">
+                                <i class="bi bi-lightbulb"></i>
+                            </div>
+
+                            <div>
+                                <div class="panel-title">
+                                    Smart Spending Tips
+                                </div>
+
+                                <div class="panel-subtitle">
+                                    A little awareness goes a long way.
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="p-3 rounded-3 mb-3"
+                             style="background:#f2efff;">
+
+                            <div style="color:#6957e8;font-size:20px;">
+                                <i class="bi bi-wallet2"></i>
+                            </div>
+
+                            <div style="font-size:12px;font-weight:700;margin-top:8px;">
+                                Track every expense
+                            </div>
+
+                            <div class="panel-subtitle">
+                                Record even small purchases to understand your habits.
+                            </div>
+
+                        </div>
+
+
+                        <div class="p-3 rounded-3 mb-3"
+                             style="background:#eaf8f2;">
+
+                            <div style="color:#16a475;font-size:20px;">
+                                <i class="bi bi-piggy-bank"></i>
+                            </div>
+
+                            <div style="font-size:12px;font-weight:700;margin-top:8px;">
+                                Set a realistic budget
+                            </div>
+
+                            <div class="panel-subtitle">
+                                Choose a monthly spending limit that works for you.
+                            </div>
+
+                        </div>
+
+
+                        <div class="p-3 rounded-3"
+                             style="background:#fff4e7;">
+
+                            <div style="color:#ed9638;font-size:20px;">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+
+                            <div style="font-size:12px;font-weight:700;margin-top:8px;">
+                                Review your spending
+                            </div>
+
+                            <div class="panel-subtitle">
+                                Check category totals to find opportunities to save.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="panel search-panel">
+
+                <div class="d-flex align-items-center gap-3 mb-4">
+
+                    <div class="section-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+
+                    <div>
+                        <div class="panel-title">
+                            Find a Transaction
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Search using date, category, or amount range.
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <form action="/search" method="GET">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">Date</label>
+
+                            <input type="date"
+                                   name="date"
+                                   class="form-control">
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <label class="form-label">Category</label>
+
+                            <select name="category" class="form-select">
+
+                                <option value="">All Categories</option>
+
+                                {% for category in categories %}
+                                    <option value="{{ category }}">
+                                        {{ category }}
+                                    </option>
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <label class="form-label">Min Amount</label>
+
+                            <input type="number"
+                                   name="min_amount"
+                                   min="0"
+                                   step="0.01"
+                                   class="form-control"
+                                   placeholder="Min">
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <label class="form-label">Max Amount</label>
+
+                            <input type="number"
+                                   name="max_amount"
+                                   min="0"
+                                   step="0.01"
+                                   class="form-control"
+                                   placeholder="Max">
+
+                        </div>
+
+
+                        <div class="col-md-2 d-flex align-items-end">
+
+                            <button class="btn btn-main w-100">
+                                <i class="bi bi-search me-1"></i>
+                                Search
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- TRANSACTIONS -->
+            <div class="panel" id="transactions">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="section-icon">
+                            <i class="bi bi-receipt-cutoff"></i>
+                        </div>
+
+                        <div>
+                            <div class="panel-title">
+                                Recent Transactions
+                            </div>
+
+                            <div class="panel-subtitle">
+                                Your recorded expenses in one place.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <span class="btn-soft">
+                        {{ expenses|length }} Records
+                    </span>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Expense ID</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for expense in expenses %}
+
+                                <tr>
+
+                                    <td>
+                                        <span style="color:#9290a8;font-size:11px;">
+                                            #{{ expense.id }}
+                                        </span>
+                                    </td>
+
+
+                                    <td>
+                                        {{ expense.date }}
+                                    </td>
+
+
+                                    <td>
+                                        <span class="category-badge">
+                                            {{ expense.category }}
+                                        </span>
+                                    </td>
+
+
+                                    <td class="amount-text">
+                                        ₹{{ "%.2f"|format(expense.amount) }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ expense.description or "No description" }}
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="d-flex gap-2">
+
+                                            <button type="button"
+                                                    class="action-btn"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#edit{{ expense.id }}"
+                                                    title="Edit expense">
+
+                                                <i class="bi bi-pencil"></i>
+
+                                            </button>
+
+
+                                            <form action="/delete/{{ expense.id }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('Are you sure you want to delete this expense?');">
+
+                                                <button class="action-btn delete-btn"
+                                                        title="Delete expense">
+
+                                                    <i class="bi bi-trash3"></i>
+
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <!-- EDIT FORM -->
+                                <tr class="collapse" id="edit{{ expense.id }}">
+
+                                    <td colspan="6">
+
+                                        <div class="p-3 rounded-3"
+                                             style="background:#f8f7ff;">
+
+                                            <div class="fw-bold mb-3"
+                                                 style="font-size:13px;">
+
+                                                <i class="bi bi-pencil-square me-2"></i>
+                                                Update Expense
+
+                                            </div>
+
+
+                                            <form action="/edit/{{ expense.id }}"
+                                                  method="POST"
+                                                  class="row g-2">
+
+                                                <div class="col-md-2">
+
+                                                    <input type="date"
+                                                           name="date"
+                                                           class="form-control"
+                                                           value="{{ expense.date }}"
+                                                           required>
+
+                                                </div>
+
+
+                                                <div class="col-md-2">
+
+                                                    <input type="number"
+                                                           name="amount"
+                                                           class="form-control"
+                                                           min="0.01"
+                                                           step="0.01"
+                                                           value="{{ expense.amount }}"
+                                                           required>
+
+                                                </div>
+
+
+                                                <div class="col-md-2">
+
+                                                    <input type="text"
+                                                           name="category"
+                                                           class="form-control"
+                                                           value="{{ expense.category }}"
+                                                           required>
+
+                                                </div>
+
+
+                                                <div class="col-md-3">
+
+                                                    <input type="text"
+                                                           name="description"
+                                                           class="form-control"
+                                                           value="{{ expense.description }}"
+                                                           placeholder="Description">
+
+                                                </div>
+
+
+                                                <div class="col-md-3">
+
+                                                    <button class="btn btn-main w-100">
+                                                        <i class="bi bi-check-lg me-1"></i>
+                                                        Save Changes
+                                                    </button>
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            {% else %}
+
+                                <tr>
+
+                                    <td colspan="6">
+
+                                        <div class="text-center py-5">
+
+                                            <i class="bi bi-receipt"
+                                               style="font-size:38px;color:#c7c2e8;"></i>
+
+                                            <h6 class="mt-3 fw-bold">
+                                                No transactions yet
+                                            </h6>
+
+                                            <p class="panel-subtitle">
+                                                Your expenses will appear here once you add them.
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <footer>
+                Made with <span style="color:#e77a9b;">♥</span>
+                using Python & Flask
+                <br>
+                SpendWise · Personal Expense & Budget Tracker
+            </footer>
+
+        </main>
+
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+    // Apply template-rendered widths without embedding template syntax in CSS.
+    document.querySelectorAll(".category-bar[data-width]").forEach(bar => {
+        bar.style.width = `${bar.dataset.width}%`;
+    });
+
+    // Custom category selection
+    const categorySelect = document.getElementById("category");
+    const customBox = document.getElementById("custom-category-box");
+    const customInput = document.getElementById("custom-category");
+
+    categorySelect.addEventListener("change", function () {
+
+        if (this.value === "__custom__") {
+
+            customBox.style.display = "block";
+            customInput.required = true;
+
+        } else {
+
+            customBox.style.display = "none";
+            customInput.required = false;
+
+        }
+
+    });
+
+
+    // Submit custom category with expense
+    document.getElementById("expense-form").addEventListener("submit", function (event) {
+
+        if (categorySelect.value === "__custom__") {
+
+            const customValue = customInput.value.trim();
+
+            if (!customValue) {
+
+                event.preventDefault();
+                alert("Please enter a custom category.");
+                return;
+
+            }
+
+            const option = document.createElement("option");
+
+            option.value = customValue;
+            option.textContent = customValue;
+            option.selected = true;
+
+            categorySelect.appendChild(option);
+
+        }
+
+    });
+
+
+    // Highlight sidebar navigation
+    const links = document.querySelectorAll(".side-link");
+
+    links.forEach(link => {
+
+        link.addEventListener("click", function () {
+
+            links.forEach(item => item.classList.remove("active"));
+
+            this.classList.add("active");
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

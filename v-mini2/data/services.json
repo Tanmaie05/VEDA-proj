@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Web Development",
+        "category": "IT Services",
+        "price": 15000,
+        "status": "Active"
+    },
+    {
+        "id": 2,
+        "name": "Python Programming Training",
+        "category": "Training",
+        "price": 5000,
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "name": "Cloud Computing",
+        "category": "IT Services",
+        "price": 12000,
+        "status": "Active"
+    },
+    {
+        "name": "Java Full Stack Developement",
+        "category": "Training",
+        "price": 25000.0,
+        "id": 4,
+        "status": "Active"
+    }
+]

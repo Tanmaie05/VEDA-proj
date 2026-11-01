@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Python Programming",
+        "duration": "4 Weeks",
+        "category": "Technical Training",
+        "status": "Open"
+    },
+    {
+        "id": 2,
+        "name": "Web Development Bootcamp",
+        "duration": "6 Weeks",
+        "category": "Technical Training",
+        "status": "Open"
+    },
+    {
+        "id": 3,
+        "name": "Internship Program",
+        "duration": "8 Weeks",
+        "category": "Internship",
+        "status": "Open"
+    },
+    {
+        "name": "Java Full Stack Development",
+        "duration": "6 Weeks",
+        "category": "Training",
+        "id": 4,
+        "status": "Open"
+    }
+]

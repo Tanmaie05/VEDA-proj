@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "customer": "Kiran Patil",
+        "service": "Web Development",
+        "description": "Website maintenance request.",
+        "priority": "Medium",
+        "status": "Open"
+    },
+    {
+        "id": 2,
+        "customer": "Meera Joshi",
+        "service": "Cloud Computing",
+        "description": "Cloud setup consultation.",
+        "priority": "High",
+        "status": "In Progress"
+    }
+]

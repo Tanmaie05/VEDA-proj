@@ -1,0 +1,37 @@
+[
+    {
+        "id": "f9c477f7",
+        "date": "2026-11-01",
+        "amount": 3500.0,
+        "category": "Shopping",
+        "description": "birthday"
+    },
+    {
+        "id": "6f6d295f",
+        "date": "2026-11-01",
+        "amount": 2800.0,
+        "category": "Entertainment",
+        "description": "movie"
+    },
+    {
+        "id": "dc2fe3a6",
+        "date": "2026-10-29",
+        "amount": 1690.0,
+        "category": "Bills",
+        "description": "wifi"
+    },
+    {
+        "id": "5a28441d",
+        "date": "2026-11-01",
+        "amount": 15000.0,
+        "category": "Bills",
+        "description": "rent"
+    },
+    {
+        "id": "ec23568a",
+        "date": "2026-11-01",
+        "amount": 500.0,
+        "category": "Food",
+        "description": "grocery"
+    }
+]
